@@ -203,17 +203,22 @@ class FluxInterface_0260(FluxInterface):
 
     @staticmethod
     def state(state):
-        if state == "CD":
+        if state == "D":
+            return State.PENDING
+        elif state == "S":
+            return State.QUEUED
+        elif state == "R":
+            return State.RUNNING
+        elif state == "C":
+            return State.FINISHING
+        elif state == "CD":
             return State.FINISHED
         elif state == "F":
             return State.FAILED
-        elif state == "R":
-            return State.RUNNING
-        elif state == "PD":
-            return State.PENDING
-        elif state == "C":
+        elif state == "CA":
             return State.CANCELLED
         elif state == "TO":
             return State.TIMEDOUT
         else:
+            LOGGER.error(f"Unhandled state: {state}")
             return State.UNKNOWN
